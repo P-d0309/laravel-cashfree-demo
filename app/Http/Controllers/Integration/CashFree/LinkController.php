@@ -12,7 +12,7 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        return view('integrations.cashfree.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
+		return view('integrations.cashfree.create');
     }
 
     /**
