@@ -78,7 +78,8 @@ class LinkController extends Controller
 
 		$apiURL = env('CARDFREE_ENV_MODE')  == "production" ? 'https://api.cashfree.com/pg/links' : 'https://sandbox.cashfree.com/pg/links';
 		$response = Http::withHeaders($headers)->post($apiURL, $body)->json();
-		dd($response);
+
+		return redirect()->back();
 	}
 
 	public function updateLinkUsingWebhook(Request $request)
