@@ -41,7 +41,7 @@ class LinkController extends Controller
 		$link_amount = $request->link_amount;
 		$link_currency = CashFreeLink::LINK_CURRENCY;
 		$link_purpose = $request->link_purpose;
-		$is_upi = $request->is_upi;
+		$is_upi = $request->is_upi ? true : false;
 		$customer_phone = $request->customer_phone;
 		$customer_email = $request->customer_email;
 		$link_expiry_time = now()->addDay();
@@ -81,6 +81,7 @@ class LinkController extends Controller
 		try {
 			$apiURL = env('CARDFREE_ENV_MODE')  == "production" ? 'https://api.cashfree.com/pg/links' : 'https://sandbox.cashfree.com/pg/links';
 			$response = Http::withHeaders($headers)->post($apiURL, $body);
+
 			if ($response->successful()) {
 				$data = $response->json();
 
@@ -101,7 +102,6 @@ class LinkController extends Controller
 				$cashFreeLink->link_expiry_time = $link_expiry_time;
 				$cashFreeLink->created_by = Auth::user()->id;
 				$cashFreeLink->save();
-
 				Session::flash('message.level', 'success');
 				Session::flash('message.content', 'Link created successfully.');
 			}
@@ -110,7 +110,7 @@ class LinkController extends Controller
 			Session::flash('message.content', $th->getMessage());
 		}
 
-		return redirect()->back();
+		return redirect()->route('cashfree-links.index');
 	}
 
 	public function updateLinkUsingWebhook(Request $request)
