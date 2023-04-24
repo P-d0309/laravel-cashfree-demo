@@ -28,6 +28,7 @@ class CashFreeLink extends Model
 		'cf_link_id',
 		'link_expiry_time',
 		'created_by',
+		'link_amount_paid'
 	];
 
 	CONST LINK_CURRENCY = "INR";

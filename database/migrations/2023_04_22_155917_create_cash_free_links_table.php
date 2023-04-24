@@ -14,9 +14,15 @@ return new class extends Migration
         Schema::create('cash_free_links', function (Blueprint $table) {
             $table->id();
 			$table->text('link_purpose')->nullable();
-			$table->integer('link_amount')->default(1);
+			$table->double('link_amount', 2)->default(1);
+			$table->double('link_amount_paid', 2)->default(1);
 			$table->uuid('link_id')->nullable();
 			$table->string('customer_phone')->nullable();
+			$table->string('order_id')->nullable();
+			$table->string('order_hash')->nullable();
+			$table->string('order_amount')->nullable();
+			$table->string('transaction_id')->nullable();
+			$table->string('transaction_status')->nullable();
 			$table->string('link_currency')->default('INR');
 			$table->string('customer_email')->nullable();
 			$table->string('customer_name')->nullable();
@@ -25,7 +31,6 @@ return new class extends Migration
 			$table->boolean('send_email')->default(0);
 			$table->string('notify_url')->nullable();
 			$table->string('return_url')->nullable();
-			$table->string('notify_url')->nullable();
 			$table->string('link_url')->nullable();
 			$table->string('link_status')->nullable();
 			$table->string('cf_link_id')->nullable();
