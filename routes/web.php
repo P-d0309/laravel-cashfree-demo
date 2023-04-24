@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Integration\CashFree\LinkController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('webbook/cf-redirect', function() {
+	return response()->json(['data' => 'success']);
+})->name('paymentSuccess');
+
+Route::any('cf-payment-webhook', function () {
+	return response()->json(request()->all());
+	Log::info(json_encode(request()->all()));
+})->name('cfPaymentWebhook');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,7 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::resource('cashfree-links', LinkController::class);
 });
 

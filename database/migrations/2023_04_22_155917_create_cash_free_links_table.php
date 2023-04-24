@@ -13,6 +13,24 @@ return new class extends Migration
     {
         Schema::create('cash_free_links', function (Blueprint $table) {
             $table->id();
+			$table->text('link_purpose')->nullable();
+			$table->integer('link_amount')->default(1);
+			$table->uuid('link_id')->nullable();
+			$table->string('customer_phone')->nullable();
+			$table->string('link_currency')->default('INR');
+			$table->string('customer_email')->nullable();
+			$table->string('customer_name')->nullable();
+			$table->boolean('is_upi')->default(0);
+			$table->boolean('send_sms')->default(0);
+			$table->boolean('send_email')->default(0);
+			$table->string('notify_url')->nullable();
+			$table->string('return_url')->nullable();
+			$table->string('notify_url')->nullable();
+			$table->string('link_url')->nullable();
+			$table->string('link_status')->nullable();
+			$table->string('cf_link_id')->nullable();
+			$table->dateTime('link_expiry_time');
+			$table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }
