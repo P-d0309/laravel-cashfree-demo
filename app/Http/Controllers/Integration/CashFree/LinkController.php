@@ -18,7 +18,9 @@ class LinkController extends Controller
 	 */
 	public function index()
 	{
-		return view('integrations.cashfree.index');
+		$cashFreeLinks = CashFreeLink::orderBy('id', 'desc')->paginate(5);
+
+		return view('integrations.cashfree.index', compact('cashFreeLinks'));
 	}
 
 	/**
@@ -98,7 +100,7 @@ class LinkController extends Controller
 				$cashFreeLink->send_email = $send_email;
 				$cashFreeLink->link_status = isset($data['link_status']) ?  $data['link_status']  : null;;
 				$cashFreeLink->cf_link_id = isset($data['cf_link_id']) ?  $data['cf_link_id']  : null;
-				$cashFreeLink->cf_link_id = isset($data['link_url']) ?  $data['link_url']  : null;
+				$cashFreeLink->link_url = isset($data['link_url']) ?  $data['link_url']  : null;
 				$cashFreeLink->link_expiry_time = $link_expiry_time;
 				$cashFreeLink->created_by = Auth::user()->id;
 				$cashFreeLink->save();

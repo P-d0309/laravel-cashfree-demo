@@ -33,38 +33,37 @@
                             <table class="table w-full">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Job</th>
-                                        <th>Favorite Color</th>
+                                        <th>Phone</th>
+                                        <th>Description</th>
+                                        <th>Link ID</th>
+                                        <th>Transaction ID</th>
+                                        <th>Order ID</th>
+                                        <th>Amount</th>
+                                        <th>CF Link ID</th>
+                                        <th>Status</th>
+                                        <th>Link</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- row 1 -->
-                                    <tr>
-                                        <th>1</th>
-                                        <td>Cy Ganderton</td>
-                                        <td>Quality Control Specialist</td>
-                                        <td>Blue</td>
-                                    </tr>
-                                    <!-- row 2 -->
-                                    <tr class="active">
-                                        <th>2</th>
-                                        <td>Hart Hagerty</td>
-                                        <td>Desktop Support Technician</td>
-                                        <td>Purple</td>
-                                    </tr>
-                                    <!-- row 3 -->
-                                    <tr>
-                                        <th>3</th>
-                                        <td>Brice Swyre</td>
-                                        <td>Tax Accountant</td>
-                                        <td>Red</td>
-                                    </tr>
+                                    @forelse ($cashFreeLinks as $cashFreeLink)
+                                        <tr>
+                                            <td>{{ $cashFreeLink->customer_phone }}</td>
+                                            <td>{{ $cashFreeLink->link_purpose }}</td>
+                                            <td>{{ $cashFreeLink->link_id }}</td>
+                                            <td>{{ $cashFreeLink->transaction_id }}</td>
+                                            <td>{{ $cashFreeLink->order_id }}</td>
+                                            <td>{{ $cashFreeLink->link_amount }}</td>
+                                            <td>{{ $cashFreeLink->cf_link_id }}</td>
+                                            <td>{{ $cashFreeLink->link_status }}</td>
+                                            <td>{{ $cashFreeLink->link_url }}</td>
+                                        </tr>
+                                    @empty
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    {{ $cashFreeLinks->links() }}
                     <div class="card-actions justify-end">
                         <a href="{{ route('cashfree-links.create') }}" class="btn btn-primary">Create a new Link</a>
                     </div>
