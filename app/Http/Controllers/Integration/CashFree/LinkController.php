@@ -118,7 +118,9 @@ class LinkController extends Controller
 	public function updateLinkUsingWebhook(Request $request)
 	{
 		$data = $request->all();
+
 		try {
+		    $data = $data['data'];
 			//code...
 			$cashFreeLink = CashFreeLink::where('link_id', $data['link_id'])->first();
 			$cashFreeLink->link_status = $data['link_status'];
