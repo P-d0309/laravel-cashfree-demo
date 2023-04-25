@@ -46,7 +46,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($cashFreeLinks as $cashFreeLink)
-                                        <tr>
+                                        <tr  @class(['text-blue-500' => $cashFreeLink->link_status === "ACTIVE", 'text-green-500' => $cashFreeLink->link_status === "PAID"])>
                                             <td>{{ $cashFreeLink->customer_phone }}</td>
                                             <td>{{ $cashFreeLink->link_purpose }}</td>
                                             <td>{{ $cashFreeLink->link_id }}</td>
